@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="th">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#f7f5ef">
+	<title>สถานที่ท่องเที่ยว</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--black: #030303;
+			--gray: #69746d;
+			--white: #f7f5ef;
+			--green: #1abb05;
+            --orange: #ee9105;
+            --blue: #0a7bee;
+            --brown: #a0522d;
+		}
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
+		body {
+			font-family: "Noto Sans Thai", "DM Sans", sans-serif;
+		}
+
+		.page-header {
+			max-width: 1380px;
+			margin: 0 auto;
+			padding: clamp(20px, 30vw, 30px) clamp(16px, 7.2vw, 100px);
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: clamp(10px, 2vw, 20px);
+		}
+		.trip-name {
+			margin: 0;
+			color: var(--black);
+			font: 700 clamp(12px, 1.5vw, 20px) "DM Sans", sans-serif;
+			white-space: nowrap;
+		}
+		.trip-name span { color: var(--orange); }
+		.page-title {
+			margin: 0;
+			text-align: right;
+			font-size: clamp(17px, 3.2vw, 38px);
+			font-weight: 700;
+			line-height: 1.35;
+			color: var(--orange);
+			white-space: normal;
+		}
+		.feature {
+			position: relative;
+			max-width: 1200px;
+			height: clamp(300px, 43vw, 510px);
+			margin: 0 auto;
+			overflow: hidden;
+			background: #899b89;
+		}
+		.feature-link { position: absolute; inset: 0; overflow: hidden; }
+		.feature img, .card-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
+		.feature img { object-position: center 53%; transition: transform 700ms cubic-bezier(.2,.7,.2,1), filter 350ms ease; }
+		.feature-link:hover img { transform: scale(1.045); filter: saturate(1.08); }
+		.feature-link:active img { transform: scale(.985); }
+		
+
+		.collection {
+			max-width: 1380px;
+			margin: 0 auto;
+			padding: clamp(44px, 5.3vw, 72px) clamp(18px, 7.2vw, 100px) clamp(52px, 6.4vw, 88px);
+		}
+		.section-heading {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 20px;
+			padding-bottom: 22px;
+			border-bottom: 1px solid var(--line);
+		}
+		.section-heading h2 {
+			position: relative;
+			isolation: isolate;
+			margin: 0;
+			font-size: clamp(28px, 3vw, 40px);
+			font-weight: 700;
+			line-height: 1.4;
+		}
+		.section-heading h2 span { color: var(--green); }
+		.section-heading p { margin: 0; color: var(--gray); font-size: 12px; }
+		.gallery {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: clamp(20px, 2.5vw, 34px) clamp(14px, 1.6vw, 22px);
+			padding-top: clamp(20px, 2vw, 28px);
+		}
+		.travel-card { min-width: 0; animation: arrive 500ms both; }
+		.travel-card:nth-child(n+2) { animation-delay: 60ms; }
+		.gallery-divider {
+			grid-column: 1 / -1;
+			margin: 20px 0 4px;
+			color: var(--blue);
+			text-align: center;
+			font-size: clamp(26px, 3vw, 38px);
+        }
+        .gallery-divider1 {
+			grid-column: 1 / -1;
+			margin: 20px 0 4px;
+			color: var(--brown);
+			text-align: center;
+			font-size: clamp(26px, 3vw, 38px);
+		}
+		.travel-card h3 {
+			margin: 14px 0 0;
+			color: var(--black);
+			font-size: clamp(18px, 2vw, 24px);
+			font-weight: 10px;
+			line-height: 1.4;
+			text-align: center;
+		}
+		.card-image {
+			position: relative;
+			display: block;
+			aspect-ratio: 1.34;
+			overflow: hidden;
+			background: #d8d8cb;
+			text-decoration: none;
+		}
+		.card-image img { transition: transform 500ms cubic-bezier(.2,.7,.2,1), filter 250ms ease; }
+		.card-image:hover img { transform: scale(1.2); filter: brightness(1.15); }
+		.card-image:active img { transform: scale(2); }
+		.card-image::after {
+			position: absolute;
+			inset: 0;
+			display: grid;
+			place-items: center;
+			color: rgb(245, 242, 242);
+			content: "ดูรายละเอียด  ↗";
+			font-size: 20px;
+			font-weight: 600;
+			opacity: 0;
+			transform: translateY(10px);
+			transition: opacity 300ms ease, transform 300ms ease;
+
+		}
+		.card-image:hover::after,
+		.card-image:focus-visible::after { opacity: 1; transform: translateY(0); }
+		.map-link, .zone-nav a {
+			display: block;
+			width: fit-content;
+			padding: 9px 16px;
+			border-radius: 25px;
+			background: linear-gradient(110deg, #ff514f, #e91e63);
+			box-shadow: 0 5px 15px rgba(233, 30, 99, .28);
+			color: white;
+			font-size: 16px;
+			font-weight: 700;
+			text-decoration: none;
+			white-space: nowrap;
+			transition: transform 180ms ease, box-shadow 180ms ease;
+		}
+		.map-link { margin: 10px auto 0; }
+		.zone-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(12px, 2.5vw, 16px); }
+		.map-link:hover, .zone-nav a:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 20px rgba(233, 30, 99, .42);
+		}
+
+
+	</style>
+</head>
+<body>
+	<main id="top">
+		<div class="page-header">
+			<p class="trip-name">ChiangMai <span>Trip</span></p>
+			<nav class="zone-nav" aria-label="ไปยังโซนท่องเที่ยว">
+				<a href="#zone-mountains">ภูเขา</a>
+				<a href="#zone-waterfalls">น้ำตก</a>                               <!-- ปุ่มกดดูเเต่ละโซน -->
+				<a href="#zone-temples">วัด</a>
+			</nav>
+			<h1 class="page-title">สถานที่ท่องเที่ยวในเชียงใหม่</h1>
+		</div>
+		<section class="feature" aria-label="สถานที่แนะนำ">
+			<a class="feature-link" href="https://th.wikipedia.org/wiki/เชียงใหม่" target="_blank" rel="noopener noreferrer" aria-label="อ่านรายละเอียดเกี่ยวกับจังหวัดเชียงใหม่">
+				<img src="https://www.ktc.co.th/upload/pub/media/Article/01/travel-chiangmai-cover_1200x630px.webp" >
+			</a>
+			
+		</section>
+
+		<section class="collection" id="collection" aria-labelledby="collection-title">
+			<div class="section-heading">
+				<h2 id="collection-title"><span>เเหล่งท่องเที่ยวธรรมชาติ 🏔️</span></h2>
+			</div>
+			<div class="gallery" id="gallery"></div>
+		</section>
+        <script>
+		const places = [
+            // ท่องเที่ยวธรรมชาติ ภูเขา
+    [
+        'https://s359.kapook.com/pagebuilder/a6ee41e0-8e81-4eb8-a339-2efb786d3d1b.jpg',
+        'https://www.traveloka.com/th-th/explore/destination/things-to-do-in-doi-ang-khang/1005538',
+        'ดอยอ่างขาง',
+        'ดอยอ่างขาง เชียงใหม่'
+    ],
+    [
+        'https://chiangmai.zoothailand.org/images/article/5555.jpg',
+        'https://chiangmai.zoothailand.org/index.php',
+        'สวนสัตว์เชียงใหม่',
+        'สวนสัตว์เชียงใหม่ เชียงใหม่'
+    ],
+    [
+        'https://radiochiangmai.prd.go.th/th/file/get/type/thumbnail/file/20231206a61fc44d637bb8749960bad4db34f264151901.jpg',
+        'https://sabosciences.com/%E0%B8%AA%E0%B8%A7%E0%B8%99%E0%B8%9E%E0%B8%A4%E0%B8%81%E0%B8%A9%E0%B8%A8%E0%B8%B2%E0%B8%AA%E0%B8%95%E0%B8%A3%E0%B9%8C-%E0%B9%80%E0%B8%8A%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B9%83%E0%B8%AB%E0%B8%A1%E0%B9%88/',
+        'สวนพฤกษศาสตร์',
+        'สวนพฤกษศาสตร์ เชียงใหม่'
+    ],
+
+    [
+        'https://www.autoinfo.co.th/uploads/2017/05/DSC_6165.jpg',
+        'https://www.doa.go.th/hc/cmrarc/',
+        'ศูนย์วิจัยเกษตรหลวงเชียงใหม่',
+        'ศูนย์วิจัยเกษตรหลวงเชียงใหม่ เชียงใหม่'
+    ],
+    [
+        'https://www.trekkingthai.com/wp-content/uploads/2014/10/20161228_170621_0045.jpg',
+        'https://th.trip.com/guide/activity/doi+luang+chiang+dao.html',
+        'ดอยหลวงเชียงดาว',
+        'ดอยหลวงเชียงดาว เชียงใหม่'
+    ],
+    [
+        'https://img.kapook.com/u/2023/sireeporn/Travel-01/Khun%20Chang%20Khian_01.jpg',
+        'https://travel.kapook.com/view161828.html',
+        'ขุนช่างเคี่ยน',
+        'ขุนช่างเคี่ยน เชียงใหม่'
+    ],
+
+    // น้ำตก
+    [
+        'https://ik.imgkit.net/tvlk/blog/2024/04/sEQtpPw1-image25.png?tr=q-70,c-at_max,w-1000,h-600',
+        'https://www.traveloka.com/th-th/explore/destination/things-to-do-in-pha-dok-siew-waterfall/1007249',
+        'น้ำตกผาดอกเสี้ยว',
+        'น้ำตกผาดอกเสี้ยว เชียงใหม่'
+    ],
+    [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8SEUXCCwDyVbPBA9IMIar_O0DAw2oDtdWLoFi5VvksA&s=10',
+        'https://www.traveloka.com/th-th/explore/destination/things-to-do-in-mork-fah-waterfall/1008405',
+        'น้ำตกหมอกฟ้า',
+        'น้ำตกหมอกฟ้า เชียงใหม่'
+    ],
+    [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrHGTuJmGqASC27kI_a6CRlvW5hdaDQuDrg4NPKZ14WQ&s=10',
+        'https://doisuthep.science.cmu.ac.th/trail-detail/12',
+        'น้ำตกมณฑาธาร',
+        'น้ำตกมณฑาธาร เชียงใหม่'
+    ],
+
+    [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL63lQJY2S--lppTO0TfvkyHQDW-AZocjw63lvnjJdyQ&s=10',
+        'https://www.traveloka.com/th-th/explore/destination/things-to-do-in-huay-kaew-waterfall/1008400',
+        'น้ำตกห้วยแก้ว',
+        'น้ำตกห้วยแก้ว เชียงใหม่'
+    ],
+    [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiCCI1gMdFh2Zpl2QXCxuQoVNvFcRxnFmul4vUwU7rl1tAiuTK-KZN9TU&s=10',
+        'https://www.wongnai.com/reviews/ea6eac2a90354b26bfec5129c2a871a1',
+        'น้ำตกวชิรธาร',
+        'น้ำตกวชิรธาร เชียงใหม่'
+    ],
+    [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzsj9rtcYrigzbjIoMN0Ddjmwvfs5NHAgX3RwhN0B2mA&s=10',
+        'https://www.traveloka.com/th-th/explore/destination/things-to-do-in-mae-tia-waterfall/1006223',
+        'น้ำตกแม่เตี๊ยะ',
+        'น้ำตกแม่เตี๊ยะ เชียงใหม่'
+    ],
+
+            // วัด
+
+            [
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdVQXUYpa1cKklAUmpxc9NnYQjxB5LoujoyMfmoUfzbm-Hrg7JOPBP7x4&s=10',
+        'https://blog.bangkokair.com/wat-phra-that-doi-suthep-travel-guide/',
+        'วัดพระธาตุดอยสุเทพ',
+        'วัดพระธาตุดอยสุเทพ เชียงใหม่'
+    ],
+    [
+        'https://ik.imagekit.io/tvlk/blog/2025/05/shutterstock_2143098185-1024x683.jpg?tr=q-70,c-at_max,w-1000,h-600',
+        'https://blog.bangkokair.com/wat-phra-that-doi-kham-chiangmai/',
+        'วัดพระธาตุดอยคำ',
+        'วัดพระธาตุดอยคำ เชียงใหม่'
+    ],
+    [
+        'https://f.tpkcdn.com/images-720/1afbbd80b9659214797d7126ec809f19.jpg',
+        'https://travel.trueid.net/detail/wAE9bPgDqwRA',
+        'วัดพระธาตุศรีจอมทองวรวิหาร',
+        'วัดพระธาตุศรีจอมทองวรวิหาร เชียงใหม่'
+    ],
+
+    [
+        'https://media-cdn.tripadvisor.com/media/photo-s/09/36/6a/41/caption.jpg',
+        'https://www.traveloka.com/th-th/explore/destination/things-to-do-in-wat-umong/1005495',
+        'วัดอุโมงค์',
+        'วัดอุโมงค์ เชียงใหม่'
+    ],
+    [
+        'https://1672travelbuddy.com/article_images/359158e2431497281fce7d442ae2d4c2.jpg',
+        'https://www.wongnai.com/attractions/324891iJ-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B9%80%E0%B8%94%E0%B9%88%E0%B8%99%E0%B8%AA%E0%B8%B0%E0%B8%AB%E0%B8%A5%E0%B8%B5%E0%B8%A8%E0%B8%A3%E0%B8%B5%E0%B9%80%E0%B8%A1%E0%B8%B7%E0%B8%AD%E0%B8%87%E0%B9%81%E0%B8%81%E0%B8%99-%E0%B8%A7%E0%B8%B1%E0%B8%94%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99%E0%B9%80%E0%B8%94%E0%B9%88%E0%B8%99',
+        'วัดบ้านเด่นสะหลีศรีเมืองแกน',
+        'วัดบ้านเด่นสะหลีศรีเมืองแกน เชียงใหม่'
+    ],
+    [
+        'https://img.wongnai.com/p/800x0/2018/09/20/e7b56c796cd246db80f57d2c50990bb2.jpg',
+        'https://chiangmaipao.go.th/ChiangMaiWorldHeritage/?p=93',
+        'วัดพระสิงห์',
+        'วัดพระสิงห์ เชียงใหม่'
+    ],
+];
+
+
+		const gallery = document.querySelector('#gallery');
+
+    function makeCard(photo, url, title, destination) {
+
+        const card = document.createElement('article');
+        card.className = 'travel-card';
+
+        // สร้างโครงสร้างการ์ด
+        card.innerHTML = `
+            <a class="card-image" href="${url}" target="_blank" rel="noopener noreferrer">
+                <img loading="lazy">
+            </a>
+
+            <h3>${title}</h3>
+
+            <a class="map-link"
+               href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}"
+               target="_blank"
+               rel="noopener noreferrer">
+                📍 ดูเส้นทาง
+            </a>
+        `;
+
+    
+        const image = card.querySelector('img');
+
+        image.src = photo;
+        image.alt = title;
+
+        return card;
+    }
+
+		places.forEach(([photo, url, title, destination], index) => {
+			gallery.append(makeCard(photo, url, title, destination));
+			if (index === 5 ) {
+				const divider = document.createElement('h2');
+				divider.className = 'gallery-divider';
+				divider.id = 'zone-waterfalls';
+				divider.textContent = 'เเหล่งท่องเที่ยวธรรมชาติ (น้ำตก) 🌊';
+				gallery.append(divider);
+			}
+			if (index === 11) {
+				const divider = document.createElement('h2');
+				divider.className = 'gallery-divider1';
+				divider.id = 'zone-temples';
+				divider.textContent = 'เเหล่งท่องเที่ยวทางศาสนา 🛕';
+				gallery.append(divider);
+			}
+		});
+		document.querySelector('#collection-title').id = 'zone-mountains';
+</script>
+
+</body>
+</html>

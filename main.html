@@ -14,25 +14,25 @@
 			--gray: #69746d;
 			--white: #f7f5ef;
 			--green: #1abb05;
-            --orange: #ee9105;
+            --orange: #ee9105;					<!-- ใช้ในการเลือกสีตามที่ตัวเองต้องการเเละได้กำหนดไว้ -->							
             --blue: #0a7bee;
             --brown: #a0522d;
 			--line: #deded5;
 		}
-		* { box-sizing: border-box; }
-		html { scroll-behavior: smooth; }
+		* { box-sizing: border-box; }				<!-- ***  -->
+		html { scroll-behavior: smooth; }			<!-- ทำให้การเลื่อน การกดบนหน้า website ลื่นไหลมากขึ้น -->
 		body {
 			margin: 0;
-			font-family: "Noto Sans Thai", "DM Sans", sans-serif;
+			font-family: "Noto Sans Thai", "DM Sans", sans-serif; 			<!-- กำหนด font ที่ต้องการใช้ เเละสามารถเลือกได้ตามลำดับที่ต้องการ -->
 		}
 
 		.page-header {
 			max-width: 1380px;
 			margin: 0 auto;
-			padding: clamp(16px, 3vw, 30px) clamp(16px, 7.2vw, 100px);
+			padding: clamp(16px, 3vw, 30px) clamp(16px, 7.2vw, 100px);			<!-- กำหนดขนาดของรูปหัวข้อใหญ่ด้านบนสุดของ เชียงใหม่ -->
 			display: flex;
 			align-items: center;
-			justify-content: center;
+			justify-content: center;				<!-- มีการกำหนดให้อยู่ตรงกลางของหน้าจอ มีการกำหนดให้รูปภาพสามารถยืดหยุ่นตามขนาดหน้าจอของคนใช้ -->
 			flex-wrap: wrap;
 			gap: clamp(10px, 2vw, 24px);
 		}

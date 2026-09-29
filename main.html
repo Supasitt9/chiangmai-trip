@@ -14,25 +14,25 @@
 			--gray: #69746d;
 			--white: #f7f5ef;
 			--green: #1abb05;
-            --orange: #ee9105;					<!-- ใช้ในการเลือกสีตามที่ตัวเองต้องการเเละได้กำหนดไว้ -->							
+            --orange: #ee9105;
             --blue: #0a7bee;
             --brown: #a0522d;
 			--line: #deded5;
 		}
-		* { box-sizing: border-box; }				<!-- ***  -->
-		html { scroll-behavior: smooth; }			<!-- ทำให้การเลื่อน การกดบนหน้า website ลื่นไหลมากขึ้น -->
+		* { box-sizing: border-box; }
+		html { scroll-behavior: smooth; }
 		body {
 			margin: 0;
-			font-family: "Noto Sans Thai", "DM Sans", sans-serif; 			<!-- กำหนด font ที่ต้องการใช้ เเละสามารถเลือกได้ตามลำดับที่ต้องการ -->
+			font-family: "Noto Sans Thai", "DM Sans", sans-serif;
 		}
 
 		.page-header {
 			max-width: 1380px;
 			margin: 0 auto;
-			padding: clamp(16px, 3vw, 30px) clamp(16px, 7.2vw, 100px);			<!-- กำหนดขนาดของรูปหัวข้อใหญ่ด้านบนสุดของ เชียงใหม่ -->
+			padding: clamp(16px, 3vw, 30px) clamp(16px, 7.2vw, 100px);
 			display: flex;
 			align-items: center;
-			justify-content: center;				<!-- มีการกำหนดให้อยู่ตรงกลางของหน้าจอ มีการกำหนดให้รูปภาพสามารถยืดหยุ่นตามขนาดหน้าจอของคนใช้ -->
+			justify-content: center;
 			flex-wrap: wrap;
 			gap: clamp(10px, 2vw, 24px);
 		}
@@ -76,6 +76,9 @@
 			margin: 0 auto;
 			padding: clamp(44px, 5.3vw, 72px) clamp(18px, 7.2vw, 100px) clamp(52px, 6.4vw, 88px);
 		}
+
+        /* ช่องค้นหา */
+.
 		.section-heading {
 			display: flex;
 			justify-content: center;
@@ -187,7 +190,7 @@
 			<h1 class="page-title">สถานที่ท่องเที่ยวในเชียงใหม่</h1>
 		</div>
 		<section class="feature" aria-label="สถานที่แนะนำ">
-			<a class="feature-link" href="https://chiangmai.moc.go.th/th/content/page/index/id/1055" target="_blank" rel="noopener noreferrer" aria-label="อ่านรายละเอียดเกี่ยวกับจังหวัดเชียงใหม่">
+			<a class="feature-link" href="https://th.wikipedia.org/wiki/เชียงใหม่" target="_blank" rel="noopener noreferrer" aria-label="อ่านรายละเอียดเกี่ยวกับจังหวัดเชียงใหม่">
 				<img src="https://www.ktc.co.th/upload/pub/media/Article/01/travel-chiangmai-cover_1200x630px.webp" >
 			</a>
 			
@@ -371,6 +374,7 @@
 			}
 		});
 		document.querySelector('#collection-title').id = 'zone-mountains';
+
 </script>
 
 </body>
